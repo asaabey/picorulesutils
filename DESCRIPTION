@@ -1,0 +1,10 @@
+Package: picoruleutils
+Type: Package
+Title: Picorules Utilities
+Version: 0.1.0
+Author: Asanga Abeyaratne
+Maintainer: Asanga Abeyaratne <asaabey@gmail.com>
+Description: Utility functions to work with Picorules
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
