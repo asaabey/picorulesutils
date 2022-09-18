@@ -4,9 +4,14 @@ Title: Picorules Utilities
 Version: 0.1.0
 Author: Asanga Abeyaratne
 Maintainer: Asanga Abeyaratne <asaabey@gmail.com>
-Description: Utility functions to work with Picorules
+Description: Utility functions to work with Picorules ecosystem.
+    Picorules is usually transpiled in SQL.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
+Imports: 
+    httr,
+    jsonlite,
+    stringr

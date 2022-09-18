@@ -9,7 +9,7 @@
 #' @return text with SQL code
 #' @export
 #'
-#' @examples compile_to_sql("ckd","body..","PLSQL","http://localhost:8321/v1/engine/compile")
+#' @examples compile_to_sql("ckd",".","PLSQL","http://localhost:8321/v1/engine/compile")
 #'
 compile_to_sql <- function(picorule_name, picorule_text, target_sql, compiler_api){
 
@@ -25,24 +25,33 @@ compile_to_sql <- function(picorule_name, picorule_text, target_sql, compiler_ap
     name = picorule_name,
     text = picorule_text,
     table_prefix = "ROUT_",
-    target_system = target_system,
+    target_system = target_sql,
     db_schema = "pico"
   )
 
   req_body_json <-jsonlite::toJSON(req_body, pretty = T, auto_unbox = T)
 
   # Call API
-  res <- httr::POST(
-    compiler_api,
-    body = req_body_json,
-    encode = "json",
-    add_headers(.headers = c("Content-Type"="application/json","accept"="application/json"))
-  )
 
-  cont <- jsonlite::fromJSON(content(res, "text"))
+  if(picorule_text=="."){
+    return("null body")
+  } else {
+    res <- httr::POST(
+      compiler_api,
+      body = req_body_json,
+      encode = "json",
+      httr::add_headers(.headers = c("Content-Type"="application/json","accept"="application/json"))
+    )
 
-  sql <-paste(cont$sql_ruleblock$sql_rules$sql, collapse = " ")
+    cont <- jsonlite::fromJSON(httr::content(res, "text"))
 
-  return(sql)
+    sql <-paste(cont$sql_ruleblock$sql_rules$sql, collapse = " ")
+
+    return(sql)
+
+  }
+
+
+
 
 }
